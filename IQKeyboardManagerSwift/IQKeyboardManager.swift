@@ -315,6 +315,11 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
      */
     @objc public var placeholderButtonColor: UIColor?
 
+    /**
+    Ignores bottom inset when positioning keyboard. Default is false.
+    */
+    @objc public var ignoreBottomInset = false
+    
     ///--------------------------
     /// MARK: UITextView handling
     ///--------------------------
@@ -1005,7 +1010,7 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
             let layoutAreaHeight: CGFloat = rootController.view.layoutMargins.bottom
 
             let topLayoutGuide: CGFloat = max(navigationBarAreaHeight, layoutAreaHeight) + 5
-            let bottomLayoutGuide: CGFloat = (textFieldView is UIScrollView && textFieldView.responds(to: #selector(getter: UITextView.isEditable))) ? 0 : rootController.view.layoutMargins.bottom  //Validation of textView for case where there is a tab bar at the bottom or running on iPhone X and textView is at the bottom.
+            let bottomLayoutGuide: CGFloat = (textFieldView is UIScrollView && textFieldView.responds(to: #selector(getter: UITextView.isEditable))) || ignoreBottomInset ? 0 : rootController.view.layoutMargins.bottom  //Validation of textView for case where there is a tab bar at the bottom or running on iPhone X and textView is at the bottom.
 
             //  Move positive = textField is hidden.
             //  Move negative = textField is showing.
